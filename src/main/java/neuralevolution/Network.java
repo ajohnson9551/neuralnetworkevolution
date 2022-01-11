@@ -1,25 +1,27 @@
 package neuralevolution;
 
-import java.util.ArrayList;
-import java.util.Random;
+import lunarlander.LunarLanderOutput;
 
 public abstract class Network {
 
-    private int score;
+    private double score;
 
-    public abstract Output evaluate(Input in);
-    public abstract double[] evaluate(double[] x);
     public abstract void averageWith(Network net2);
     public abstract void mutate();
-    public abstract void randomize();
     public abstract void print();
+    public abstract double[] evaluate(double[] x);
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
+    public Output evaluate(Input in) {
+        Output out = new LunarLanderOutput();
+        out.assignFromArray(evaluate(in.toArray()));
+        return out;
+    }
 }

@@ -1,13 +1,9 @@
 package neuralevolution;
 
-public class BasicNetworkParameters implements NetworkParameters {
-
-    protected final int numInputs;
-    protected final int numOutputs;
+public class BasicNetworkParameters extends NetworkParameters {
 
     public BasicNetworkParameters(Integer numInputs, Integer numOutputs) {
-        this.numInputs = numInputs;
-        this.numOutputs = numOutputs;
+        super(numInputs, numOutputs);
     }
 
     public double[][] setupWeights() {

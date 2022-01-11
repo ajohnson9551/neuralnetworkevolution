@@ -24,7 +24,7 @@ public class Population {
     private boolean configuredGenetics = false;
     private boolean configuredPopulation = false;
     private int[][] data;
-    private int maxEverScore = Integer.MIN_VALUE;
+    private double maxEverScore = Double.MIN_VALUE;
 
     public Population() {
 
@@ -81,17 +81,17 @@ public class Population {
         } else {
             throw new IllegalStateException("Population class not fully configured yet!");
         }
-        data[4][0] = maxEverScore;
+        data[4][0] = (int) maxEverScore;
         return data;
     }
 
     private void cycle(int cycleNo, boolean printInfo) {
         Random rand = new Random();
-        int totalScore = 0;
-        int maxScore = Integer.MIN_VALUE;
+        double totalScore = 0;
+        double maxScore = Integer.MIN_VALUE;
         for (Network net : pop) {
             fit.score(net);
-            int score = net.getScore();
+            double score = net.getScore();
             if (score > maxScore) {
                 maxScore = score;
                 if (score > maxEverScore) {
@@ -101,11 +101,11 @@ public class Population {
             }
             totalScore += score;
         }
-        data[0][cycleNo] = maxScore;
-        data[1][cycleNo] = totalScore / popSize;
+        data[0][cycleNo] = (int) maxScore;
+        data[1][cycleNo] = (int) totalScore / popSize;
         pop.sort(new NetworkComparator());
         if (printInfo) {
-            System.out.println("Max score = " + maxScore + "/" + fit.getMaxScore());
+            System.out.println("Max score = " + (double) ((int) (1000.0 * maxScore)) / 1000.0 + "/" + fit.getMaxScore());
         }
         List<Network> babies = new ArrayList<>();
         for (int i = 0; i < bestBreederPairs *2; i+=2) {
@@ -162,6 +162,6 @@ public class Population {
     }
 
     public int getAllTimeMaxScore() {
-        return maxEverScore;
+        return (int) maxEverScore;
     }
 }

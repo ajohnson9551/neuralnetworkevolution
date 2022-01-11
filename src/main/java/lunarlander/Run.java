@@ -18,13 +18,13 @@ public class Run {
         int numBabies = 12;
         int bestBreederPairs = 3;
         int okayBreederPairs = 6;
-        double okayThreshold = 0.3; // above this percentile, genomes are considered "okay"
+        double okayThreshold = 0.6; // above this percentile, genomes are considered "okay"
         int cull = 5;
         int randomBreederPairs = 1;
         boolean elitism = false; // if true, culls and replaces bottom, else culls and replaces randomly
 
         double mutationRate = 0.8;
-        int maxMutations = 3;
+        int maxMutations = 7;
 
 
         if (startMode == 2) {
@@ -33,8 +33,10 @@ public class Run {
             numGames = 1;
         }
 
-        NetworkFactory nf = new NetworkFactory (new BasicNetworkParameters(4, 4),
-                LunarLanderNetwork.class);
+//        NetworkFactory nf = new NetworkFactory (new BasicNetworkParameters(4, 4),
+//                LunarLanderNetwork.class);
+        NetworkFactory nf = new NetworkFactory (new LayeredNetworkParameters(new int[]{4}, 4, 4),
+                LayeredNetwork.class);
         Fitness fit = new LunarLanderFitness(numGames, startMode);
         maxScore = fit.getMaxScore();
         Population pop = new Population();

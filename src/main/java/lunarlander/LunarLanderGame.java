@@ -110,14 +110,14 @@ public class LunarLanderGame implements KeyListener {
             t1 = System.currentTimeMillis();
             lastTick += (int) (t1 - t0);
         }
-        LunarLanderScore llscore = new LunarLanderScore(fuel, getSpeed());
+        LunarLanderScore score = new LunarLanderScore(fuel, getSpeed());
         // freeze canvas
         if (drawing) {
             canvas.removeKeyListener(this);
             acc[0] = 0;
             acc[1] = 0;
             canvas.updateInfo(pos, cos, sin, fuel);
-            canvas.setScore((int) llscore.computeScore());
+            canvas.setScore((int) score.computeScore());
             canvas.repaint();
             try {
                 TimeUnit.SECONDS.sleep(3);
@@ -126,7 +126,7 @@ public class LunarLanderGame implements KeyListener {
             }
             frame.dispose();
         }
-        return llscore;
+        return score;
     }
 
     public void setStart(int start) {

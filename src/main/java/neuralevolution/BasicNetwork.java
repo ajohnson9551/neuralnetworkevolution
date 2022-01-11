@@ -2,7 +2,7 @@ package neuralevolution;
 
 import java.util.Random;
 
-public abstract class BasicNetwork extends Network {
+public class BasicNetwork extends Network {
 
     private double[][] weights;
     private double[] offset;
@@ -34,20 +34,10 @@ public abstract class BasicNetwork extends Network {
         Random rand = new Random();
         int r = rand.nextInt(params.numOutputs*(1+params.numInputs));
         if (r < params.numOutputs) {
-            this.offset[r] = randVal();
+            this.offset[r] = Utility.getUtility().randVal(1);
         } else {
             r = r - params.numOutputs;
-            this.weights[r / params.numInputs][r % params.numInputs] = randVal();
-        }
-    }
-
-    @Override
-    public void randomize() {
-        for (int i = 0; i < params.numOutputs; i++) {
-            for (int j = 0; j < params.numInputs; j++) {
-                this.weights[i][j] = randVal();
-            }
-            this.offset[i] = randVal();
+            this.weights[r / params.numInputs][r % params.numInputs] = Utility.getUtility().randVal(1);
         }
     }
 
@@ -76,21 +66,8 @@ public abstract class BasicNetwork extends Network {
         }
     }
 
-    public double randVal() {
-        Random rand = new Random();
-        return 2.0*rand.nextDouble() - 1.0;
-    }
-
-    @Override
     public double[] evaluate(double[] x) {
-        double[] y = new double[params.numOutputs];
-        for (int i = 0; i < params.numOutputs; i++) {
-            for (int j = 0; j < params.numInputs; j++) {
-                y[i] += weights[i][j]*x[j];
-            }
-            y[i] += offset[i];
-        }
-        return y;
+        return Utility.getUtility().evaluate(weights, offset, x, false);
     }
 
     @Override
@@ -98,18 +75,12 @@ public abstract class BasicNetwork extends Network {
         for (int i = 0; i < params.numOutputs; i++) {
             System.out.print("[ ");
             for (int j = 0; j < params.numInputs; j++) {
-                System.out.print(round(weights[i][j]));
+                System.out.print(Utility.getUtility().roundString(weights[i][j]));
                 System.out.print(" ");
             }
             System.out.print(" ] ");
-            System.out.print("  [ " + round(offset[i]) + " ]");
+            System.out.print("  [ " + Utility.getUtility().roundString(offset[i]) + " ]");
             System.out.println();
         }
-    }
-
-    public String round(double x) {
-        String r = x >= 0 ? " " : "";
-        r += String.format("%.6f", x);
-        return r;
     }
 }
