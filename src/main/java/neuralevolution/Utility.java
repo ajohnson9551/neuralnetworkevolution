@@ -30,7 +30,7 @@ public class Utility {
 
     public String roundString(double x) {
         String r = x >= 0 ? " " : "";
-        r += String.format("%.6f", x);
+        r += String.format("%.9f", x);
         return r;
     }
 
@@ -84,7 +84,7 @@ public class Utility {
 
     public int maxIndex(double[] x) {
         int i = 0;
-        double max = Double.MIN_VALUE;
+        double max = x[0];
         for (int j = 0; j < x.length; j++) {
             if (x[j] > max) {
                 max = x[j];

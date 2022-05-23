@@ -1,6 +1,7 @@
 package lunarlander;
 
 import neuralevolution.Output;
+import neuralevolution.Utility;
 
 public class LunarLanderOutput extends Output {
 
@@ -24,10 +25,10 @@ public class LunarLanderOutput extends Output {
             }
             case 4 -> {
                 this.thrust = outArray[3] > 0;
-                this.turn = maxIndex(new double[]{outArray[0], outArray[1], outArray[2]}) - 1;
+                this.turn = Utility.getUtility().maxIndex(new double[]{outArray[0], outArray[1], outArray[2]}) - 1;
             }
             case 6 -> {
-                int outputCode = maxIndex(outArray);
+                int outputCode = Utility.getUtility().maxIndex(outArray);
                 this.thrust = (outputCode % 2) == 0;
                 this.turn = (outputCode % 3) - 1;
             }

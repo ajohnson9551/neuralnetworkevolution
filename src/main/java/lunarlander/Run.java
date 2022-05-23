@@ -35,7 +35,7 @@ public class Run {
 
 //        NetworkFactory nf = new NetworkFactory (new BasicNetworkParameters(4, 4),
 //                LunarLanderNetwork.class);
-        NetworkFactory nf = new NetworkFactory (new LayeredNetworkParameters(new int[]{4}, 4, 4),
+        NetworkFactory nf = new NetworkFactory (new LayeredNetworkParameters(new int[]{}, 4, 4),
                 LayeredNetwork.class);
         Fitness fit = new LunarLanderFitness(numGames, startMode);
         maxScore = fit.getMaxScore();
